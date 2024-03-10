@@ -29,6 +29,7 @@ export const Hero = () => {
         />
         <ButtonLink
           href={`/search?q=${watch("search")}`}
+          size="lg"
           className="absolute inset-y-2 right-8 px-4 py-2"
         >
           Search
