@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { ButtonLink } from "@/components/ui/button-link";
 
 type Inputs = {

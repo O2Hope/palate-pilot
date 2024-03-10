@@ -1,8 +1,9 @@
 import { Button } from "./button";
+import type { ReactNode } from "react";
 
 type ButtonLinkProps = {
   href: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   size?: "default" | "sm" | "lg" | "icon";
 };
