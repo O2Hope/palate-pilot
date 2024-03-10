@@ -7,7 +7,7 @@ export const GalleryContainer = ({ children }: GalleryContainerProps) => {
     <div className="flex flex-col gap-8 ">
       <h2 className="text-3xl font-bold">Discover our categories</h2>
 
-      <div className="grid overflow-y-auto grid-cols-5 gap-4">
+      <div className="grid overflow-y-auto grid-cols-4 lg:grid-cols-5 gap-8">
         {children}
       </div>
     </div>

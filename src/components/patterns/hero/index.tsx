@@ -13,12 +13,12 @@ export const Hero = () => {
   } = useForm<Inputs>();
 
   return (
-    <section className="py-8 mx-auto rounded-[12px] flex flex-col   justify-center  shadow-sm items-center gap-4">
+    <section className="my-48 py-8 mx-auto rounded-[12px] flex flex-col   justify-center  items-center gap-4 text-center">
       <h1 className="inline-block bg-gradient-to-r from-sky-400 to-indigo-600 bg-clip-text text-transparent text-7xl py-6">
         Find your next big dish
       </h1>
       <p className="text-muted-foreground">
-        Search over up to 1 Million different recipes. Always FREE 🥰. No signup
+        Search over up to 1 Million different recipes 🍽️. Always FREE 🥰. No signup
         required
       </p>
       <div className="flex  px-6 gap-2 my-12 relative w-[600px]">
@@ -35,6 +35,7 @@ export const Hero = () => {
           Search
         </ButtonLink>
       </div>
+      
     </section>
   );
 };

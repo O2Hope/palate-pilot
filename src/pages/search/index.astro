@@ -1,12 +1,19 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-const search = Astro.url.searchParams.get('q')! || '';
+const search = Astro.url.searchParams.get("q")! || "";
 
+const response = await fetch(
+  `https://api.github.com/search/repositories?q=${search}`
+);
+const data = await response.json();
+
+const randomRepo = data.items[0]
 ---
+
 <Layout title={`PaletPilot | ${search}`}>
-    <main class="container mt-12 font-bold">
-        
-<h1 class="text-4xl">Searching: {search}</h1>
-</main>
+  <main class="container mt-12 font-bold">
+    <h1 class="text-4xl">Searching: {search}</h1>
+    {JSON.stringify(randomRepo)}
+  </main>
 </Layout>
