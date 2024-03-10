@@ -1,19 +1,43 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { recipeData } from "@/data/recipes";
+import { RecipeCard } from "@/components/patterns/recipe-card";
 
 const search = Astro.url.searchParams.get("q")! || "";
+const apiBaseUrl = import.meta.env.RECIPES_API_URL;
+const apiId = import.meta.env.RECIPES_API_ID;
+const apiSecret = import.meta.env.RECIPES_API_SECRET;
 
 const response = await fetch(
-  `https://api.github.com/search/repositories?q=${search}`
+  `${apiBaseUrl}/search?app_id=${apiId}&app_key=${apiSecret}&q=${search}&from=0&to=10`
 );
-const data = await response.json();
+const data: typeof recipeData = await response.json();
 
-const randomRepo = data.items[0]
+// const data = recipeData;
 ---
 
 <Layout title={`PaletPilot | ${search}`}>
   <main class="container mt-12 font-bold">
     <h1 class="text-4xl">Searching: {search}</h1>
-    {JSON.stringify(randomRepo)}
+    <h2 class="text-xs text-muted-foreground">
+      Total # of results: {data.count}
+    </h2>
+    <div class="grid grid-cols-4 gap-8 my-8">
+      {
+        data.hits.map(({ recipe }) => (
+          <RecipeCard
+            calories={recipe.calories}
+            time={recipe.totalTime}
+            mealType={recipe.mealType[0]}
+            dishType={recipe.dishType[0]}
+            cuisineType={recipe.cuisineType[0]}
+            name={recipe.label}
+            dietLabels={recipe.dietLabels}
+            image={recipe.image}
+            cautionLabels={recipe.cautions}
+          />
+        ))
+      }
+    </div>
   </main>
 </Layout>
