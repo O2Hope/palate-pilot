@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const search = Astro.url.searchParams.get('q')! || '';
+
+---
+<Layout title={`PaletPilot | ${search}`}>
+    <main class="container mt-12 font-bold">
+        
+<h1 class="text-4xl">Searching: {search}</h1>
+</main>
+</Layout>

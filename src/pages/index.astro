@@ -1,11 +1,25 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { Hero } from "@/components/hero";
-import "@/styles/globals.css";
+import { Hero } from "@/components/patterns/hero";
+import { GalleryContainer, GalleryItem } from "@/components/patterns/gallery";
+import { foodCategories } from "@/data/food-categories";
 ---
 
-<Layout title="Welcome to Astro.">
-  <main class="container">
-    <Hero />
+<Layout title="Palate Pilot | Home">
+  <main class="container mt-12 flex flex-col gap-28 ">
+    <Hero client:visible/>
+    <GalleryContainer>
+      {foodCategories.map( c => (
+        <GalleryItem
+          text={c.name}
+        />
+      ))}
+      </GalleryContainer>
   </main>
 </Layout>
+
+<style is:global>
+  .text-stroke {
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+</style>
