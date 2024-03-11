@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button-link";
 import {
   Card,
   CardContent,
@@ -9,9 +10,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 type RecipeCardProps = {
+  url: string;
   name: string;
   dietLabels: string[];
-  cautionLabels: string[];
   calories: number;
   time: number;
   cuisineType: string;
@@ -21,9 +22,9 @@ type RecipeCardProps = {
 };
 
 export const RecipeCard = ({
+  url,
   name,
   dietLabels = [],
-  cautionLabels = [],
   image,
   calories,
   time,
@@ -31,47 +32,40 @@ export const RecipeCard = ({
   mealType,
   dishType,
 }: RecipeCardProps) => {
+  const id = url.split("/").pop()?.split("?")[0];
   return (
-    <Card className="hover:scale-105 ease-in duration-200 hover:cursor-pointer">
-      <CardHeader >
-        <CardTitle>{name}</CardTitle>
+    <Card className="hover:scale-105 ease-in duration-200">
+      <CardHeader>
+        <CardTitle className="truncate">{name}</CardTitle>
         <div className="flex items-center text-xs text-muted-foreground space-x-2">
-          <div>
-          {cuisineType} 
-          </div>
+          <div>{cuisineType}</div>
           <Separator className="h-4" orientation="vertical" />
-          <div>
-          {mealType}
-          </div>
-          <Separator   className="h-4" orientation="vertical" />
-          <div>
-          {dishType}
-          </div>
+          <div>{mealType}</div>
+          <Separator className="h-4" orientation="vertical" />
+          <div>{dishType}</div>
         </div>
-        <h3 className=" text-xs text-muted-foreground">{Math.round(calories)} kcal</h3>
+        <h3 className=" text-xs text-muted-foreground">
+          {Math.round(calories)} kcal
+        </h3>
         <h3 className=" text-xs text-muted-foreground">{time} min</h3>
       </CardHeader>
-      
+
       <CardContent>
         <img
           src={image}
-          alt="Recipe Name"
+          alt="Recipe photo"
           className="w-full h-48 object-cover rounded-sm"
         />
       </CardContent>
-      <CardFooter className="flex-col gap-2">
+      <CardFooter className="flex-col gap-2 pb-4">
         <div className="flex flex-wrap gap-2 justify-around">
           {dietLabels.map((label) => (
             <Badge key={label}>{label}</Badge>
           ))}
         </div>
-        <div className="flex flex-wrap gap-2 justify-between">
-          {cautionLabels.map((label) => (
-            <Badge variant="destructive" className="b" key={label}>
-              {label}
-            </Badge>
-          ))}
-        </div>
+        <ButtonLink variant="link" href={`/recipe?id=${id}`}>
+          View Recipe
+        </ButtonLink>
       </CardFooter>
     </Card>
   );

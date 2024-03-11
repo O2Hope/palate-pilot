@@ -1,0 +1,28 @@
+---
+import { recipeData } from "@/data/recipes";
+import Layout from "@/layouts/Layout.astro";
+import {singleRecipeData} from "@/data/recipe";
+
+
+
+const recipeId = Astro.url.searchParams.get("id")! || "";
+
+// const apiBaseUrl = import.meta.env.RECIPES_API_URL;
+// const apiId = import.meta.env.RECIPES_API_ID;
+// const apiSecret = import.meta.env.RECIPES_API_SECRET;
+
+// const response = await fetch(
+//   `${apiBaseUrl}/recipes/v2/${recipeId}?type=public&app_id=${apiId}&app_key=${apiSecret}`
+// );
+// const data: typeof singleRecipeData = await response.json();
+
+const data = singleRecipeData;
+
+---
+
+<Layout title={`PaletPilot | ${data.recipe.label}`}>
+  <main class="container mt-12">
+    <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">{data.recipe.label}</h1>
+    {JSON.stringify(data)}
+    </main>
+</Layout>

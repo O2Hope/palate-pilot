@@ -6,6 +6,7 @@ type ButtonLinkProps = {
   children: ReactNode;
   className?: string;
   size?: "default" | "sm" | "lg" | "icon";
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
 };
 
 export const ButtonLink = ({
@@ -13,9 +14,10 @@ export const ButtonLink = ({
   children,
   className,
   size = "default",
+  variant 
 }: ButtonLinkProps) => {
   return (
-    <Button asChild type="submit" size={size} className={className || ""}>
+    <Button asChild type="submit" variant={variant} size={size} className={className || ""}>
       <a href={href || ""}>{children}</a>
     </Button>
   );

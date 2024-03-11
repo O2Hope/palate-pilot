@@ -4,27 +4,29 @@ import { recipeData } from "@/data/recipes";
 import { RecipeCard } from "@/components/patterns/recipe-card";
 
 const search = Astro.url.searchParams.get("q")! || "";
-const apiBaseUrl = import.meta.env.RECIPES_API_URL;
-const apiId = import.meta.env.RECIPES_API_ID;
-const apiSecret = import.meta.env.RECIPES_API_SECRET;
+// const apiBaseUrl = import.meta.env.RECIPES_API_URL;
+// const apiId = import.meta.env.RECIPES_API_ID;
+// const apiSecret = import.meta.env.RECIPES_API_SECRET;
 
-const response = await fetch(
-  `${apiBaseUrl}/search?app_id=${apiId}&app_key=${apiSecret}&q=${search}&from=0&to=10`
-);
-const data: typeof recipeData = await response.json();
+// const response = await fetch(
+//   `${apiBaseUrl}/recipes/v2?type=public&app_id=${apiId}&app_key=${apiSecret}&q=${search}`
+// );
+// const data: typeof recipeData = await response.json();
 
+const data = recipeData;
 ---
 
 <Layout title={`PaletPilot | ${search}`}>
-  <main class="container mt-12 font-bold">
-    <h1 class="text-4xl">Searching: {search}</h1>
+  <main class="container mt-12">
+    <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">Searching: {search}</h1>
     <h2 class="text-xs text-muted-foreground">
       Total # of results: {data.count}
     </h2>
     <div class="grid grid-cols-4 gap-8 my-8">
       {
-        data.hits.map(({ recipe }) => (
+        data.hits.map(({ recipe, _links}) => (
           <RecipeCard
+            url={_links.self.href}
             calories={recipe.calories}
             time={recipe.totalTime}
             mealType={recipe.mealType[0]}
@@ -33,7 +35,6 @@ const data: typeof recipeData = await response.json();
             name={recipe.label}
             dietLabels={recipe.dietLabels}
             image={recipe.image}
-            cautionLabels={recipe.cautions}
           />
         ))
       }
