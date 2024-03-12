@@ -5,24 +5,47 @@ import { Image } from "astro:assets";
 import { Card } from "@/components/ui/card";
 import { RecipeContent } from "@/components/patterns/recipe-content";
 import { Separator } from "@/components/ui/separator";
+import {
+  ClockIcon,
+  HeartIcon,
+  TwitterLogoIcon,
+  LinkedInLogoIcon,
+  InstagramLogoIcon,
+} from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 
 const recipeId = Astro.url.searchParams.get("id")! || "";
 
-// const apiBaseUrl = import.meta.env.RECIPES_API_URL;
-// const apiId = import.meta.env.RECIPES_API_ID;
-// const apiSecret = import.meta.env.RECIPES_API_SECRET;
+const apiBaseUrl = import.meta.env.RECIPES_API_URL;
+const apiId = import.meta.env.RECIPES_API_ID;
+const apiSecret = import.meta.env.RECIPES_API_SECRET;
 
-// const response = await fetch(
-//   `${apiBaseUrl}/recipes/v2/${recipeId}?type=public&app_id=${apiId}&app_key=${apiSecret}`
-// );
-// const data: typeof singleRecipeData = await response.json();
+const response = await fetch(
+  `${apiBaseUrl}/recipes/v2/${recipeId}?type=public&app_id=${apiId}&app_key=${apiSecret}`
+);
+const data: typeof singleRecipeData = await response.json();
 
-const data = singleRecipeData;
+// const data = singleRecipeData;
 ---
 
 <Layout title={`PaletPilot | ${data.recipe.label}`}>
   <main class="container mt-12">
-    <Card className="p-16">
+    <Card className="px-16 py-8">
+      <div class="flex justify-between items-center">
+        <h3
+          class="text-lg text-muted-foreground flex align-middle space-x-1 w-1/2"
+        >
+          <ClockIcon className="my-auto h-6 w-6 " />
+          <span>{data.recipe.totalTime || "10"} min</span>
+        </h3>
+        <div class="flex space-x-1">
+          <Button variant="outline" size="icon"><TwitterLogoIcon /></Button>
+          <Button variant="outline" size="icon"><InstagramLogoIcon /></Button>
+          <Button variant="outline" size="icon"><LinkedInLogoIcon /></Button>
+
+          <Button variant="outline" size="icon"><HeartIcon /></Button>
+        </div>
+      </div>
       <Image
         class="scroll-m-20 rounded-full mx-auto"
         src={data.recipe.image}
@@ -32,41 +55,60 @@ const data = singleRecipeData;
         loading="eager"
       />
       <h1
-        class="scroll-m-20 text-4xl font-bold tracking-tight text-center my-4"
+        class="scroll-m-20 text-4xl font-bold tracking-tight text-center mt-4"
       >
         {data.recipe.label}
       </h1>
-      <Separator/>
-      <h2 class="scroll-m-20 text-2xl tracking-tight text-center text-muted-foreground my-4">
-        Nutrimental facts
+      <div
+        class="flex items-center text-xs text-muted-foreground space-x-2 mb-4 justify-center"
+      >
+        <div>{data.recipe.cuisineType}</div>
+        <Separator className="h-4" orientation="vertical" />
+        <div>{data.recipe.mealType}</div>
+        <Separator className="h-4" orientation="vertical" />
+        <div>{data.recipe.dishType}</div>
+      </div>
+
+      <Separator />
+      <h2
+        class="scroll-m-20 text-2xl tracking-tight text-center text-muted-foreground my-4"
+      >
+        Nutrition facts
       </h2>
-        <div class="flex h-12 items-center space-x-4 text-sm justify-center text-muted-foreground mb-4">
-          <div class="flex flex-col items-center">
-            <div>{Math.round(data.recipe.calories)}kcal</div>
-            <span class="font-bold">Calories</span>
-          </div>
-          <Separator orientation="vertical"/>
-          <div class="flex flex-col items-center">
-            <div> {data.recipe.totalNutrients.FAT.quantity.toFixed(2)}g </div>
-            <span class="font-bold">Fat</span>
-          </div>
-          <Separator orientation="vertical" className=""/>
-
-          <div class="flex flex-col items-center">
-            <div> {data.recipe.totalNutrients.PROCNT.quantity.toFixed(2)}g </div>
-            <span class="font-bold">Protein</span>
-          </div>
-          <Separator orientation="vertical"/>
-
-          <div class="flex flex-col items-center">
-            <div> {data.recipe.totalNutrients.CHOCDF.quantity.toFixed(2)}g </div>
-            <span class="font-bold">Carbs</span>
-          </div>
+      <div
+        class="flex h-12 items-center space-x-4 text-sm justify-center text-muted-foreground mb-4"
+      >
+        <div class="flex flex-col items-center">
+          <div>{Math.round(data.recipe.calories)}kcal</div>
+          <span class="font-bold">Calories</span>
         </div>
-      <Separator/>
+        <Separator orientation="vertical" />
+        <div class="flex flex-col items-center">
+          <div>{data.recipe.totalNutrients.FAT.quantity.toFixed(2)}g</div>
+          <span class="font-bold">Fat</span>
+        </div>
+        <Separator orientation="vertical" className="" />
 
-      <RecipeContent client:visible/>
+        <div class="flex flex-col items-center">
+          <div>{data.recipe.totalNutrients.PROCNT.quantity.toFixed(2)}g</div>
+          <span class="font-bold">Protein</span>
+        </div>
+        <Separator orientation="vertical" />
+
+        <div class="flex flex-col items-center">
+          <div>{data.recipe.totalNutrients.CHOCDF.quantity.toFixed(2)}g</div>
+          <span class="font-bold">Carbs</span>
+        </div>
+      </div>
+      <Separator />
+
+      <RecipeContent
+        nutrients={data.recipe.digest}
+        author={data.recipe.source}
+        url={data.recipe.url}
+        ingredients={data.recipe.ingredientLines}
+        client:visible
+      />
     </Card>
-    {JSON.stringify(data)}
   </main>
 </Layout>

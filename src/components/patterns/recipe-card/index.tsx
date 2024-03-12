@@ -38,11 +38,11 @@ export const RecipeCard = ({
       <CardHeader>
         <CardTitle className="truncate">{name}</CardTitle>
         <div className="flex items-center text-xs text-muted-foreground space-x-2">
-          <div>{cuisineType}</div>
+          <div className="truncate">{cuisineType}</div>
           <Separator className="h-4" orientation="vertical" />
-          <div>{mealType}</div>
+          <div className="truncate">{mealType}</div>
           <Separator className="h-4" orientation="vertical" />
-          <div>{dishType}</div>
+          <div className="truncate">{dishType}</div>
         </div>
         <h3 className=" text-xs text-muted-foreground">
           {Math.round(calories)} kcal

@@ -1,19 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { Hero } from "@/components/patterns/hero";
-import { GalleryContainer, GalleryItem } from "@/components/patterns/gallery";
-import { foodCategories } from "@/data/food-categories";
 ---
 
 <Layout title="Palate Pilot | Home">
-  <main class="container my-12w-full">
+  <main class="container flex flex-1 items-center">
     <Hero client:visible/>
-    <GalleryContainer>
+    <!-- <GalleryContainer>
       {foodCategories.map( c => (
         <GalleryItem
           text={c.name}
         />
       ))}
-      </GalleryContainer>
+      </GalleryContainer> -->
   </main>
 </Layout>

@@ -37,13 +37,13 @@ export const Header = () => {
               </ButtonLink>
             </div>
             <li>
-              <Button
+              <ButtonLink
                 variant="ghost"
-                onClick={() => (window.location.href = "/")}
+                href="/"
               >
                 <HomeIcon className="mr-2 h-4 w-4" />
                 Home
-              </Button>
+              </ButtonLink>
             </li>
             <li>
               <Button variant="ghost">

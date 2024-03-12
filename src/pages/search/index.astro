@@ -4,16 +4,17 @@ import { recipeData } from "@/data/recipes";
 import { RecipeCard } from "@/components/patterns/recipe-card";
 
 const search = Astro.url.searchParams.get("q")! || "";
-// const apiBaseUrl = import.meta.env.RECIPES_API_URL;
-// const apiId = import.meta.env.RECIPES_API_ID;
-// const apiSecret = import.meta.env.RECIPES_API_SECRET;
+const apiBaseUrl = import.meta.env.RECIPES_API_URL;
+const apiId = import.meta.env.RECIPES_API_ID;
+const apiSecret = import.meta.env.RECIPES_API_SECRET;
 
-// const response = await fetch(
-//   `${apiBaseUrl}/recipes/v2?type=public&app_id=${apiId}&app_key=${apiSecret}&q=${search}`
-// );
-// const data: typeof recipeData = await response.json();
+const response = await fetch(
+  `${apiBaseUrl}/recipes/v2?type=public&app_id=${apiId}&app_key=${apiSecret}&q=${search}`
+);
 
-const data = recipeData;
+const data: typeof recipeData = await response.json();
+
+// const data = recipeData;
 ---
 
 <Layout title={`PaletPilot | ${search}`}>
@@ -30,7 +31,7 @@ const data = recipeData;
             calories={recipe.calories}
             time={recipe.totalTime}
             mealType={recipe.mealType[0]}
-            dishType={recipe.dishType[0]}
+            dishType={recipe.dishType ? recipe.dishType[0] : ""}
             cuisineType={recipe.cuisineType[0]}
             name={recipe.label}
             dietLabels={recipe.dietLabels}
