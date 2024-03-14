@@ -79,7 +79,7 @@ export const Header = ({ search }: HeaderProps) => {
             Palate Pilot
           </a>
           <nav className="flex-1">
-            <ul className="flex items-center flex-1 space-x-2">
+            <ul className="flex items-center flex-1 space-x-2 justify-end ">
               {search && <Search />}
               <li>
                 <Tooltip>
