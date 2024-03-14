@@ -5,16 +5,9 @@ import { Image } from "astro:assets";
 import { Card } from "@/components/ui/card";
 import { RecipeContent } from "@/components/patterns/recipe-content";
 import { Separator } from "@/components/ui/separator";
-import {
-  ClockIcon,
-  HeartIcon,
-  TwitterLogoIcon,
-  LinkedInLogoIcon,
-  InstagramLogoIcon,
-  ArrowLeftIcon,
-} from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
+import { ClockIcon, ArrowLeftIcon } from "@radix-ui/react-icons";
 import { ButtonLink } from "@/components/ui/button-link";
+import { CopyButton } from "@/components/patterns/copy-button";
 
 const recipeId = Astro.url.searchParams.get("id")! || "";
 const q = Astro.url.searchParams.get("q")! || "";
@@ -30,21 +23,20 @@ const response = await fetch(
 const data: typeof singleRecipeData = await response.json();
 
 // const data = singleRecipeData;
-console.log(currentPath);
 ---
 
 <Layout title={`PaletPilot | ${data.recipe.label}`} search>
-  <main class="container flex flex-1 items-center">
-    <Card className="px-16 py-8 w-full my-16 overflow-auto">
-      <ButtonLink
-        variant="ghost"
-        className="mb-2 absolute top-24 left-16 text-lg"
-        href={`/search?q=${q}`}
-      >
-        <ArrowLeftIcon className="mr-2 h-6 w-6" />
-        Back
-      </ButtonLink>
-      <div class="flex justify-between items-center">
+  <main class="mx-2 md:container flex flex-col flex-1 items-start">
+    <ButtonLink
+      variant="ghost"
+      className="text-lg mt-6 w-fit-content"
+      href={`/search?q=${q}`}
+    >
+      <ArrowLeftIcon className="mr-2 h-6 w-6" />
+      Back
+    </ButtonLink>
+    <Card className="px-8 py-8 w-full my-8">
+      <div class="flex justify-between items-center mb-6">
         <h3
           class="text-lg text-muted-foreground flex align-middle space-x-1 w-1/2"
         >
@@ -52,18 +44,7 @@ console.log(currentPath);
           <span>{data.recipe.totalTime || "10"} min</span>
         </h3>
         <div class="flex space-x-1">
-          <Button variant="outline" size="icon"><TwitterLogoIcon /></Button>
-          <Button variant="outline" size="icon"><InstagramLogoIcon /></Button>
-          <ButtonLink
-            ariaLabel="Share on LinkedIn"
-            variant="outline"
-            size="icon"
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=${currentPath}`}
-          >
-            <LinkedInLogoIcon />
-          </ButtonLink>
-
-          <Button variant="outline" size="icon"><HeartIcon /></Button>
+          <CopyButton client:visible text={currentPath.href} />
         </div>
       </div>
       <Image

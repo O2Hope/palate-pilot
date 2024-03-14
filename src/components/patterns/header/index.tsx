@@ -43,12 +43,12 @@ export const Header = ({ search }: HeaderProps) => {
 
   const Search = () => {
     return (
-      <div className="relative">
+      <div className="relative flex-1">
         <Input
           placeholder="Search recipes"
           {...register("search", { required: true })}
           onKeyDown={onEnter}
-          className="h-12 w-[300px]"
+          className="h-12 w-full"
         />
         <Button
           size="sm"
@@ -65,15 +65,21 @@ export const Header = ({ search }: HeaderProps) => {
   return (
     <TooltipProvider>
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-[1440px] mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container p-4 flex items-center space-x-8">
           <a
             href="/"
-            className="text-2xl font-bold inline-block bg-gradient-to-r from-sky-400 to-indigo-600 bg-clip-text text-transparent"
+            className="text-2xl font-bold bg-gradient-to-r from-sky-400 to-indigo-600 bg-clip-text text-transparent block md:hidden"
+          >
+            PP
+          </a>
+          <a
+            href="/"
+            className="text-2xl font-bold bg-gradient-to-r from-sky-400 to-indigo-600 bg-clip-text text-transparent hidden md:block"
           >
             Palate Pilot
           </a>
-          <nav>
-            <ul className="flex gap-2 items-center">
+          <nav className="flex-1">
+            <ul className="flex items-center flex-1 space-x-2">
               {search && <Search />}
               <li>
                 <Tooltip>

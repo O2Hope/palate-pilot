@@ -18,14 +18,18 @@ const data: typeof recipeData = await response.json();
 ---
 
 <Layout title={`PaletPilot | ${search}`} search>
-  <main class="container mt-12">
-    <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">Searching: {search}</h1>
+  <main class="container mt-12 flex flex-col flex-1">
+    <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">
+      Searching: {search}
+    </h1>
     <h2 class="text-xs text-muted-foreground">
       # of results: {data.count}
     </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 my-8">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 my-8"
+    >
       {
-        data.hits.map(({ recipe, _links}) => (
+        data.hits.map(({ recipe, _links }) => (
           <RecipeCard
             url={_links.self.href}
             calories={recipe.calories}
