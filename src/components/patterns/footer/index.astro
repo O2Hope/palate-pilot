@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+---
+
+<footer class="bg-gradient-to-r from-sky-400 to-indigo-600">
+  <div
+    class="container text-white flex justify-center items-center space-x-2 p-6"
+  >
+    <p>If you enjoy using my app, would you consider buying me a coffee? ❤️</p>
+    <a
+      href="https://www.buymeacoffee.com/agusvaldesd"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Image
+        height={31}
+        width={112}
+        loading="eager"
+        src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+        alt="Buy Me A Coffee"
+        class="w-full h-auto max-w-28"
+      />
+    </a>
+  </div>
+</footer>

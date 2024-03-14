@@ -7,6 +7,8 @@ type ButtonLinkProps = {
   className?: string;
   size?: "default" | "sm" | "lg" | "icon";
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  target?: "_blank" | "_self" | "_parent" | "_top";
+  ariaLabel?: string;
 };
 
 export const ButtonLink = ({
@@ -14,11 +16,13 @@ export const ButtonLink = ({
   children,
   className,
   size = "default",
-  variant 
+  variant,
+  target = "_self",
+  ariaLabel
 }: ButtonLinkProps) => {
   return (
     <Button asChild type="submit" variant={variant} size={size} className={className || ""}>
-      <a href={href || ""}>{children}</a>
+      <a aria-label={ariaLabel} href={href || ""} target={target}>{children}</a>
     </Button>
   );
 };

@@ -19,6 +19,7 @@ type RecipeCardProps = {
   mealType: string;
   dishType: string;
   image: string;
+  q: string;
 };
 
 export const RecipeCard = ({
@@ -31,6 +32,7 @@ export const RecipeCard = ({
   cuisineType = "",
   mealType,
   dishType,
+  q
 }: RecipeCardProps) => {
   const id = url.split("/").pop()?.split("?")[0];
   return (
@@ -53,7 +55,7 @@ export const RecipeCard = ({
       <CardContent>
         <img
           src={image}
-          alt="Recipe photo"
+          alt={name}
           className="w-full h-48 object-cover rounded-sm"
         />
       </CardContent>
@@ -63,7 +65,7 @@ export const RecipeCard = ({
             <Badge key={label}>{label}</Badge>
           ))}
         </div>
-        <ButtonLink variant="link" href={`/recipe?id=${id}`}>
+        <ButtonLink variant="link" href={`/recipe?q=${q}&id=${id}`}>
           View Recipe
         </ButtonLink>
       </CardFooter>

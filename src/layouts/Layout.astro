@@ -4,10 +4,12 @@ interface Props {
 	title: string;
 	description?: string;
 	image?: string;
+	search?: boolean;
 }
 
-const { title, description = "A bunch of delightful recipes", image } = Astro.props;
+const { title, description = "A bunch of delightful recipes", image, search }: Props = Astro.props;
 import { ViewTransitions } from 'astro:transitions';
+import Footer from "@/components/patterns/footer/index.astro";
 import "@/styles/globals.css";
 
 ---
@@ -26,7 +28,8 @@ import "@/styles/globals.css";
 		<ViewTransitions />
 	</head>
 	<body class="relative flex min-h-screen flex-col bg-background">
-		<Header client:visible />
+		<Header search={search} client:visible />
 		<slot />
+		<Footer/>
 	</body>
 </html>

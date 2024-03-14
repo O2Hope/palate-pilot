@@ -44,6 +44,17 @@ export const RecipeContent = ({
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
+        <AccordionTrigger>Preparation</AccordionTrigger>
+        <AccordionContent>
+          This recipe is brought to you by <b>{author}</b>. You can find the
+          preparation instructions {" "}
+          <a className="text-primary " href={url} target="_blank">
+            here
+          </a>
+          .
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
         <AccordionTrigger>Nutrients</AccordionTrigger>
         <AccordionContent>
           <Table>
@@ -65,17 +76,6 @@ export const RecipeContent = ({
               ))}
             </TableBody>
           </Table>
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-3">
-        <AccordionTrigger>Preparation</AccordionTrigger>
-        <AccordionContent>
-          This recipe is brought to you by <b>{author}</b>. You can find the
-          preparation instructions {" "}
-          <a className="text-primary " href={url} target="_blank">
-            here
-          </a>
-          .
         </AccordionContent>
       </AccordionItem>
     </Accordion>

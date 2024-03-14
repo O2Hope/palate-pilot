@@ -17,13 +17,13 @@ const data: typeof recipeData = await response.json();
 // const data = recipeData;
 ---
 
-<Layout title={`PaletPilot | ${search}`}>
+<Layout title={`PaletPilot | ${search}`} search>
   <main class="container mt-12">
     <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">Searching: {search}</h1>
     <h2 class="text-xs text-muted-foreground">
-      Total # of results: {data.count}
+      # of results: {data.count}
     </h2>
-    <div class="grid grid-cols-4 gap-8 my-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 my-8">
       {
         data.hits.map(({ recipe, _links}) => (
           <RecipeCard
@@ -36,6 +36,7 @@ const data: typeof recipeData = await response.json();
             name={recipe.label}
             dietLabels={recipe.dietLabels}
             image={recipe.image}
+            q={search}
           />
         ))
       }
